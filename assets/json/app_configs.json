@@ -1,0 +1,8 @@
+{
+    "id": "6972_5dY3kO6YL5zbriegYF70A4ocjeakFfEPBGwxRBY340wJhTY0r8",
+    "secret": "AOZHOvyhVNNpRLaszkhJtBi34Ni5PD8W4LqriFZQbhVU2EvmQU",
+    "url": "openapi.ctrader.com",
+    "login_url":"id.ctrader.com",
+    "socket_live": "live.ctraderapi.com",
+    "socket_demo": "demo.ctraderapi.com"
+}

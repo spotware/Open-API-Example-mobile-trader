@@ -1,0 +1,6 @@
+use-escaping: true
+arb-dir: lib\dictionaries
+template-arb-file: dict_en.arb
+synthetic-package: false
+output-dir: lib\l10n
+output-localization-file: localizations.dart

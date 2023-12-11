@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<title>MiniChart</title>
+
+	<script type="text/javascript" src="chart-api.min.js"></script>
+	<style>
+		html,
+		body {
+			margin: 0;
+			height: 100%;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		body {
+			font-family: sans-serif;
+			font-size: 16px;
+			color: #999;
+		}
+
+		.wrapper {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#chartContainer {
+			width: 100%;
+			height: 100%;
+		}
+
+		body.portreit #chartContainer>div:nth-child(1)>div>div>div.ui-toolbar {
+			display: none;
+		}
+	</style>
+</head>
+
+<body class="portreit">
+	<div class="wrapper">
+		<div id="chartContainer" style="width: 100%; height: 100%"></div>
+	</div>
+	<script type="text/javascript">
+		let currentCbID = 0;
+		window["callbacks"] = {};
+		function bindCalback(cb) {
+			let id = "nativeCB_" + (++currentCbID);
+			callbacks[id] = cb;
+			return id;
+		}
+		window["callbackById"] = function (id) {
+			return callbacks[id];
+		}
+
+
+		// chart.clearIndicators();
+		function initChart(backgroundColor, titleColor, symbol, showToolbar) {
+			var options = {
+				"toolbar.elements": ['timeframe', 'type', 'indicators', 'drawings', 'clear'],
+				"colors.background": backgroundColor,
+				"colors.title": titleColor,
+				"general.defaultSymbol": symbol,
+				"general.defaultTitle": symbol,
+				"general.defaultTimeframe": "1H",
+			};
+			window['chart'] = new T4PChart('chartContainer', options);
+			chart.addEventHandler('onCandlesRequest', function (symbol, timeframe, timestampFrom, timestampTo, count, callback) {
+				// console.log(symbol, timeframe, timestampFrom, timestampTo, count);
+				let id = bindCalback(callback);
+				native.postMessage(JSON.stringify({
+					type: "loadCandles",
+					data: {
+						symbol: symbol,
+						timeframe: timeframe,
+						timestampFrom: timestampFrom,
+						timestampTo: timestampTo,
+						count: count,
+						callback: "callbackById(\"" + id + "\")"
+					}
+				}));
+			});
+			chart.setSymbol(symbol);
+
+			document.getElementsByTagName('body')[0].className = showToolbar == true ? "" : "portreit";
+		}
+
+		let deals = {};
+		let dealSLTPs = {};
+		let _editingDealId = -1;
+		function addDealToChart(symbol, dealId, isBuy, openTSSec, rate, tp, sl, pnl, volume) {
+			if (deals[dealId] == null) {
+				let deal = deals[dealId] = chart.addDeal(symbol, openTSSec, rate, tp, sl);
+				dealSLTPs[dealId] = [sl, tp];
+				
+				deal.type(isBuy ? "buy" : "sell");
+				deal.colorProfit("#049F30");
+				deal.colorLoss("#EF6161");
+				deal.title(volume);
+				deal.on("closeDeal", function () { onHandleCloseDealTap(dealId); });
+				deal.on("closeTakeProfit", function () { onChangeDealTakeProfit(dealId); });
+				deal.on("changeTakeProfit", function () { /*startEditing(dealId);*/ deal.takeProfit(dealSLTPs[dealId][1]); });
+				deal.on("setTakeProfit", function () { /*onChangeDealTakeProfit(dealId, this.takeProfit());*/ deal.takeProfit(dealSLTPs[dealId][1]); });
+				deal.on("closeStopLoss", function () { onChangeDealStopLoss(dealId); });
+				deal.on("changeStopLoss", function () { /*startEditing(dealId);*/ deal.stopLoss(dealSLTPs[dealId][0]); });
+				deal.on("setStopLoss", function () { /*onChangeDealStopLoss(dealId, this.stopLoss());*/ deal.stopLoss(dealSLTPs[dealId][0]); });
+			}
+			updateDealOnChart(dealId, tp, sl, pnl, volume);
+		}
+		function updateDealOnChart(dealId, tp, sl, pnl, volume) {
+			let deal = deals[dealId];
+			if (deal != null) {
+				deal.net(pnl);
+				deal.title(volume);
+
+				dealSLTPs[dealId] = [sl, tp];
+				if (_editingDealId != dealId) deal.takeProfit(tp);
+				if (_editingDealId != dealId) deal.stopLoss(sl);
+			} else {
+				console.error("Can't find deal with id");
+			}
+		}
+		function dropDeal(dealId) {
+			let deal = deals[dealId];
+			if (deal != null) {
+				deal.drop();
+				delete deals[dealId];
+			}
+		}
+		function dropAllDeals() {
+			for (var key in deals) {
+				if (deals.hasOwnProperty(key)) {
+					deals[key].drop();
+				}
+			}
+			deals = {};
+		}
+		function onHandleCloseDealTap(dealId) {
+			native.postMessage(JSON.stringify({ type: "closeDeal", data: { id: dealId } }));
+		}
+		function onChangeDealTakeProfit(dealId, rate) {
+			_editingDealId = -1;
+			native.postMessage(JSON.stringify({ type: "setDealTakeProfit", data: { id: dealId, rate: rate } }));
+		}
+		function onChangeDealStopLoss(dealId, rate) {
+			_editingDealId = -1;
+			native.postMessage(JSON.stringify({ type: "setDealStopLoss", data: { id: dealId, rate: rate } }));
+		}
+		function startEditing(dealId) {
+			_editingDealId = dealId;
+		}
+
+		let orders = {};
+		let orderSLTPs = {};
+		let _editingOrderId = -1;
+		function addOrderToChart(orderId, symbol, volume, isBuy, openTSSec, rate, tp, sl) {
+			if (orders[orderId] == undefined) {
+				let order = orders[orderId] = chart.addDeal(symbol, openTSSec, rate, tp, sl);
+				orderSLTPs[orderId] = [sl, tp];
+				
+				order.title(volume);
+				order.type(isBuy ? "buy" : "sell");
+				order.net('@' + rate);
+				order.color("#a9b7bb");
+				order.colorProfit("#a9b7bb");
+				order.colorLoss("#a9b7bb");
+
+				order.on("closeDeal", function () { onHandleCloseOrder(orderId); });
+				order.on("closeTakeProfit", function () { onChangeOrderTakeProfit(orderId); });
+				order.on("changeTakeProfit", function () { /*startEditingOrder(orderId);*/ order.takeProfit(orderSLTPs[orderId][1]) });
+				order.on("setTakeProfit", function () { /*onChangeOrderTakeProfit(orderId, this.takeProfit());*/ order.takeProfit(orderSLTPs[orderId][1]) });
+				order.on("closeStopLoss", function () { onChangeOrderStopLoss(orderId); });
+				order.on("changeStopLoss", function () { /*startEditingOrder(orderId);*/ order.stopLoss(orderSLTPs[orderId][0]); });
+				order.on("setStopLoss", function () { /*onChangeOrderStopLoss(orderId, this.stopLoss());*/ order.stopLoss(orderSLTPs[orderId][0]); });
+			}
+		}
+		function dropOrder(orderId) {
+			let order = orders[orderId];
+			if (order != null) {
+				order.drop();
+				delete orders[orderId];
+			}
+		}
+		function dropAllOrders() {
+			for (var key in orders) {
+				if (orders.hasOwnProperty(key)) {
+					orders[key].drop();
+				}
+			}
+			orders = {};
+		}
+		function updateOrder(orderId, rate, volume, tp, sl) {
+			let order = orders[orderId];
+			if (order == null) return;
+
+			order.entry(rate);
+			order.net('@' + rate);
+			order.title(volume);
+			orderSLTPs[orderId] = [sl, tp];
+			if (_editingOrderId != orderId) order.takeProfit(tp);
+			if (_editingOrderId != orderId) order.stopLoss(sl);
+			order.color("#a9b7bb");
+		}
+		function startEditingOrder(orderId) {
+			_editingOrderId = orderId;
+		}
+		function onHandleCloseOrder(orderId) {
+			native.postMessage(JSON.stringify({ type: "closeOrder", data: { id: orderId } }));
+		}
+		function onChangeOrderTakeProfit(orderId, rate) {
+			_editingOrderId = -1;
+			native.postMessage(JSON.stringify({ type: "setOrderTakeProfit", data: { id: orderId, rate: rate } }));
+		}
+		function onChangeOrderStopLoss(orderId, rate) {
+			_editingOrderId = -1;
+			native.postMessage(JSON.stringify({ type: "setOrderStopLoss", data: { id: orderId, rate: rate } }));
+		}
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>MiniChart</title>
+
+    <script type="text/javascript" src="chart-api.min.js"></script>
+    <script type="text/javascript" src="signals.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chartContainer {
+            width: 100%;
+            flex: 1;
+        }
+
+        #signalsContainer {
+            width: 100%;
+            flex: 0 0 180px;
+        }
+
+        #chartContainer>div:nth-child(1)>div>div>div.ui-toolbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="portreit">
+    <div class="wrapper">
+        <div id="chartContainer" style="width: 100%;"></div>
+        <div id="signalsContainer" style="width: 100%;"></div>
+    </div>
+    <script type="text/javascript">
+        let currentCbID = 0;
+        window["callbacks"] = {};
+        function bindCalback(cb) {
+            let id = "nativeCB_" + (++currentCbID);
+            callbacks[id] = cb;
+            return id;
+        }
+        window["callbackById"] = function (id) {
+            return callbacks[id];
+        }
+        window['updateTimerId'] = null;
+
+        function init(backgroundColor, titleColor) {
+            var options = {
+                "toolbar.elements": [],
+                "colors.background": backgroundColor,
+                "colors.title": titleColor,
+                "general.defaultTimeframe": "1H",
+            };
+
+            window['chart'] = new T4PChart('chartContainer', options);
+            chart.addEventHandler('onCandlesRequest', function (symbol, timeframe, timestampFrom, timestampTo, count, callback) {
+                clearTimeout(window['updateTimerId']);
+
+                let id = bindCalback(callback);
+                native.postMessage(JSON.stringify({
+                    type: "loadCandles",
+                    data: {
+                        symbol: symbol,
+                        timeframe: timeframe,
+                        timestampFrom: timestampFrom,
+                        timestampTo: timestampTo,
+                        count: count,
+                        callback: "callbackById(\"" + id + "\")"
+                    }
+                }));
+            });
+
+            window['signals'] = new T4PSignals('signalsContainer', { vips: true });
+            signals.addEventHandler('apply', (id) => {
+                signals.getIdea(id, chart.applyIdea);
+                window['updateTimerId'] = setTimeout(() => native.postMessage(JSON.stringify({ type: 'symbolChanged', data: { symbol: chart.getSymbol() } })), 500);
+            });
+        }
+    </script>
+</body>
+
+</html>

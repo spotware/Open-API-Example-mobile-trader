@@ -1,0 +1,485 @@
+{
+    "sourcesAndDetails": "Sources and details",
+    "openAPI": "Open API",
+    "loginSignInLable": "To experience all the features\noffered by this app please:",
+    "loginSignInButton": "Log in with your cTrader account",
+    "dontHaveAnAccoutnYet": "Don''t have an account yet?",
+    "chooseBrokerFromFeaturesList": "Choose any broker from our ''Featured Brokers'' list!",
+    "continueWithBroker": "Continue with {broker}",
+    "@continueWithBroker": {
+        "placeholders": {
+            "broker": {
+                "type": "String"
+            }
+        }
+    },
+    "menu": "Menu",
+    "helloTrader": "Hello, Trader",
+    "markets": "Markets",
+    "myAccound": "My account",
+    "myActivity": "My activity",
+    "manageAccount": "Manage account",
+    "logOut": "Log out",
+    "openApiSupport": "Open API support",
+    "account": "Account",
+    "balanceLabel": "Balance:",
+    "equityLabel": "Equity:",
+    "marginLabel": "Margin:",
+    "freeMarginLabel": "Free Margin:",
+    "marginLevelLabel": "Margin Level:",
+    "unrNetPnlLabel": "Unr Net P&L:",
+    "darkTheme": "Dark theme",
+    "showOpenPositionsOrdersInMarketScreen": "Show open positions/limit orders in the Market screens",
+    "allowSimultaneousTradingForAccounts": "Allow simultaneous trading on multiple accounts",
+    "canYouCreateBetterApp": "Can you create a better app?",
+    "reuseOurCode": "Reuse our code to save time!",
+    "buy": "Buy",
+    "sell": "Sell",
+    "placeholderFavoritesListEmpty": "You still don''t have any symbols in your \"favourites\" list. Tap a star icon on any symbol to add it to \"favourites\".",
+    "units": "Units",
+    "pipPosition": "Pip position",
+    "shortSelling": "Short selling",
+    "notAllowed": "Not allowed",
+    "leverage": "Leverage",
+    "leverageTiers": "Leverage tiers",
+    "volumeUsd": "Volume (in USD)",
+    "dayOfWeek": "{name, select, monday{Monday} tuesday{Tuesday} wednesday{Wednesday} thursday{Thursday} friday{Friday} saturday{Saturady} sunday{Sunday} other{n/a}}",
+    "@dayOfWeek": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "dayOfWeekByNum": "{weekDay, select, 1{Monday} 2{Tuesday} 3{Wednesday} 4{Thursday} 5{Friday} 6{Saturady} 7{Sunday} other{n/a}}",
+    "@dayOfWeekByNum": {
+        "placeholders": {
+            "weekDay": {
+                "type": "String",
+                "descripti0n": "Sequence number of the day in the week starting from Monday"
+            }
+        }
+    },
+    "swap3Days": "3 days swap",
+    "swapPerLot": "Swap per {value} {measerments} ({type, select, long{long} other{short}})",
+    "@swapPerLot": {
+        "placeholders": {
+            "value": {
+                "type": "String"
+            },
+            "measerments": {
+                "type": "String"
+            },
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "pips": "pips",
+    "rolloverCommission3Days": "3 Days Rollover Commission",
+    "rolloverCommission": "Rollover Commission",
+    "minOrder": "Minimum order",
+    "maxOrder": "Maximum order",
+    "commission": "Commission",
+    "minCommission": "Minimum commission",
+    "commissionUsdPerMillionUsd": "USD per million USD volume",
+    "commissionPercentageOfValue": "{value}% of trading volume",
+    "@commissionPercentageOfValue": {
+        "placeholders": {
+            "value": {
+                "type": "String"
+            }
+        }
+    },
+    "commissionUsdPerLot": "{amount} USD per {value} {units}",
+    "@commissionUsdPerLot": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "value": {
+                "type": "String"
+            },
+            "units": {
+                "type": "String"
+            }
+        }
+    },
+    "commissionQuoteCcyPerLot": "{amount} {currency} per {lot} {units}",
+    "@commissionQuoteCcyPerLot": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            },
+            "currency": {
+                "type": "String"
+            },
+            "lot": {
+                "type": "String"
+            },
+            "units": {
+                "type": "String"
+            }
+        }
+    },
+    "tradingHours": "Trading Hours",
+    "tradingSchedule": "Trading Schedule",
+    "holidays": "Holidays",
+    "holiday": "Holiday",
+    "nextHoliday": "Next holiday",
+    "from": "From",
+    "to": "To",
+    "fromDate": "From date",
+    "toDate": "To date",
+    "date": "Date",
+    "dateFrom": "Date From",
+    "dateTo": "Date To",
+    "holidayDate": "{day} of {month, select, 1{Jan} 2{Feb} 3{Mar} 4{Apr} 5{May} 6{Jun} 7{Jul} 8{Aug} 9{Sep} 10{Oct} 11{Nov} 12{Dec} other{???}}",
+    "@holidayDate": {
+        "placeholders": {
+            "day": {
+                "type": "int"
+            },
+            "month": {
+                "type": "String"
+            }
+        }
+    },
+    "back": "Back",
+    "expectedMargin": "Expected margin",
+    "chartRotateTip": "Rotate phone to get\nfull screen chart with menu",
+    "buySellWhenRateIs": "{name} when rate is",
+    "@buySellWhenRateIs": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "takeProfit": "Take profit",
+    "stopLoss": "Stop loss",
+    "trailingStop": "Trailing stop",
+    "errorOccurred": "An error occurred",
+    "someErrorOccurred": "Some error occurred",
+    "errorDescription": "Error description",
+    "buySellSymbolPositionWas": "{direction, select, buy{Buy} sell{Sell} other{Your}} {symbol} position was {action, select, opened{opened} increased{increased} decreased{decreased} reversed{reversed} closed{closed} closedPartially{partially closed} rejected{rejected by market} cancelled{cancelled by market} updated{updated} other{???}}.",
+    "@buySellSymbolPositionWas": {
+        "placeholders": {
+            "direction": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            },
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+    "amount": "Amount",
+    "price": "Price",
+    "positionId": "Position ID",
+    "expectedProfit": "Expected profit",
+    "expectedLoss": "Expected loss",
+    "noLoginAccessPopupTitle": "No Access",
+    "noLoginAccessPopupBody": "Your account has no access to live trading. Please contact your broker for details.",
+    "limitedAccessPopupTitle": "Limited Access",
+    "noTradingAccessPopupuBody": "Your account has a \"view only\" access. Please contact your broker for more details.",
+    "closeOnlyAccessPopupBody": "Your account has a limited access. You can''t create new orders, but only close existing orders. Please contact your broker for more details.",
+    "spreadBettingPopupTitle": "Spread Betting Account",
+    "spreadBettingPopupBody": "Your account is of SPREAD BETTING type. This app allows trading activities only for HEDGED or NETTED types of accounts. In order to continue, please open an appropriate account with one of our partners.",
+    "successLoginPopupTitle": "Success",
+    "successLoginPopupBody": "You''ve successfully logged in.",
+    "yourAccount": "Your account",
+    "yourBroker": "Your broker",
+    "moreAccountAvailableInTab": "You can manage your accounts in app''s \"My account\" tab.",
+    "demo": "Demo",
+    "live": "Live",
+    "orderExecutionFailed": "Order''s execution failed",
+    "orderFillError": "Your order no. {orderId} couldn''t be filled by the market. Please try again.",
+    "positionAction": "Position {action, select, increased{increased} decreased{decreased} reversed{reversed} other{???}}",
+    "@positionAction": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+    "positionWas": "Position was {action, select, opened{opened} changed{changed} closed{closed} rejected{rejected} cancelled{cancelled} updated{updated} other{???}}",
+    "@positionWas": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+    "filledAmount": "Filled amount",
+    "totalAmount": "Total amount",
+    "openPrice": "Open price",
+    "closePrice": "Close price",
+    "realizedPnl": "Realized PnL",
+    "orderId": "Order ID",
+    "distance": "Distance",
+    "cancelOrderBy": "Cancel your order by",
+    "pendingOrderState": "Pending order {state, select, created{created} cancelled{cancelled} cancelledPartially{cancelled partially} rejected{rejected} updated{updated} expired{expired} executed{executed} executedPartially{partially executed} other{???}}",
+    "@pendingOrderState": {
+        "placeholders": {
+            "state": {
+                "type": "String"
+            }
+        }
+    },
+    "buySellSymbolOrderState": "{direction, select, buy{Buy} sell{Sell} other{???}} {symbol} pending order was {state, select, created{created} cancelled{cancelled} cancelledPartially{cancelled partially} rejected{rejected by the broker} updated{updated} expired{expired} other{???}}.",
+    "@buySellSymbolOrderState": {
+        "placeholders": {
+            "direction": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            },
+            "state": {
+                "type": "String"
+            }
+        }
+    },
+    "validTill": "Valid till",
+    "cancelled": "Cancelled",
+    "positions": "Positions",
+    "orders": "Orders",
+    "closed": "Closed",
+    "guaranteedStopLoss": "Guaranteed stop loss",
+    "openTime": "Open time",
+    "edit": "Edit",
+    "goodTill": "Good till",
+    "creationTime": "Creation time",
+    "tradingForSymbolClosed": "Trading for this symbol is closed",
+    "transactionId": "Transaction (deal) ID",
+    "relatedId": "Related position ID",
+    "grossPnl": "Gross PnL",
+    "swapCommission": "Swap commission",
+    "closeTime": "Close time",
+    "showMore": "Show more",
+    "closingPosition": "Closing position",
+    "reallyWantClosePosition": "Do you really want to close position with ID: {id}",
+    "@reallyWantClosePosition": {
+        "placeholders": {
+            "id": {
+                "type": "int"
+            }
+        }
+    },
+    "no": "No",
+    "yes": "Yes",
+    "cancelingOrder": "Canceling pending order",
+    "reallyWantCancelOrder": "Do you really want to cancel pending order with ID: {id}",
+    "@reallyWantCancelOrder": {
+        "placeholders": {
+            "id": {
+                "type": "int"
+            }
+        }
+    },
+    "editPosition": "Edit position",
+    "editOrder": "Edit pending order",
+    "currentRate": "Current rate",
+    "created": "Created",
+    "rejected": "Rejected",
+    "updated": "Updated",
+    "expired": "Expired",
+    "opened": "Opened",
+    "openingPrice": "Opening price",
+    "eitherSLorTPRejected": "Either Stop Loss or Take Profit was rejected. Please try to set it again.",
+    "positionTemporaryClose": "{direction, select, buy{Buy} sell{Sell} other{???}} {symbol} position was closed, but you still have pending orders related to this position.",
+    "@positionTemporaryClose": {
+        "placeholders": {
+            "direction": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            }
+        }
+    },
+    "closedAmount": "Closed amount",
+    "pendingAmount": "Pending amount",
+    "stopOutClosure": "Stop out closure",
+    "buySellSymbolStopOut": "{direction, select, buy{Buy} sell{Sell} other{}} {symbol} position was {partially, select, true{partially} other{}} closed by market, because you''ve reached stop out level.",
+    "@buySellSymbolStopOut": {
+        "placeholders": {
+            "direction": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            },
+            "partially": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "attention": "Attention!",
+    "orderWillBeCanceledBeforeNewOne": "This action requires a new order. New order will be sent to the market only after cancellation of pending order ID: {orderId}.",
+    "@orderWillBeCanceledBeforeNewOne": {
+        "placeholders": {
+            "orderId": {
+                "type": "int"
+            }
+        }
+    },
+    "positionExecutionRejected": "Position execution rejected",
+    "buySellSymbolPositionCantExecute": "{direction, select, buy{Buy} sell{Sell} other{}} {symbol} position could''t be executed by the market",
+    "@buySellSymbolPositionCantExecute": {
+        "placeholders": {
+            "direction": {
+                "type": "String",
+                "example": "buy"
+            },
+            "symbol": {
+                "type": "String",
+                "example": "EURUSD"
+            }
+        }
+    },
+    "closingPendingOrder": "Closing pending order",
+    "close": "Close",
+    "cancel": "Cancel",
+    "noAccess": "No access",
+    "noAccessToTradingContactBroker": "Your account has no access to live trading. Please contact your broker for details.",
+    "limitedTradingAccess": "Limited trading access",
+    "limitedTradingAccessDescription": "In order to activate the option of Simultaneous Trading, you should have at least 2 accounts with full trading access. You can open a new trading account with any broker from our ''Featured Brokers'' list!",
+    "accountsHasNoAccessToTradingContactBroker": "{amount} of your accounts has no access to live trading. Please contact your broker for details.",
+    "changeAccount": "Please change account",
+    "accountNotSutableForSultaneousTrading": "This account is not suitable for Simultaneous Trading. Please choose account with full access to trading.",
+    "save": "Save",
+    "simultaniousTradingTooltip": "Any orders created on active account will be sent to other accounts that you''ve chosen in this list. In case of rejection or cancelation you''ll get notified with popups.",
+    "simultaniousTradingTooltipNote": "Please note that only accounts with full access to trading operations will be available for simultaneous trading. Accounts with any limitations won''t appear in accounts list for simultaneous trading.",
+    "allowdForAmountAccounts": "Allowed for: {amount} accounts",
+    "@allowdForAmountAccounts": {
+        "placeholders": {
+            "amount": {
+                "type": "int"
+            }
+        }
+    },
+    "simultaneousTrading": "Simultaneous trading",
+    "buySellSymbolSimultaneousActivity": "{direction, select, buy{Buy} sell{Sell} other{}} {symbol} {type, select, deal{deal} order{order} other{}} will be executed for following accounts:",
+    "@buySellSymbolSimultaneousActivity": {
+        "placeholders": {
+            "direction": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            },
+            "type": {
+                "type": "String",
+                "example": "deal or order"
+            }
+        }
+    },
+    "dontShowAgain": "Don''t show again",
+    "forYesOnly": "for \"Yes\" only",
+    "incompleteMatching": "Incomplete matching",
+    "symbolNotFoundForAccounts": "{symbol} wasn''t found on the following accounts:",
+    "@symbolNotFoundForAccounts": {
+        "placeholders": {
+            "symbol": {
+                "type": "String"
+            }
+        }
+    },
+    "simultaneousApplyChanges": "{type, select, position{A position} order{An order} other{???}} with the same details was previously opened for other accounts:",
+    "@simultaneousApplyChanges": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "applyChangesOnOtherAccounts": "Would you like to apply these changes on other accounts?",
+    "onlyForThisAccount": "No, only for this account",
+    "nowYourPositinBuySellSymbol": "Now your position is {type, select, buy{Buy} sell{Sell} other{}} {symbol}",
+    "@nowYourPositinBuySellSymbol": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            },
+            "symbol": {
+                "type": "String"
+            }
+        }
+    },
+    "incorrectChoice": "Incorrect choice",
+    "simultaneousChoose2Accounts": "In order to activate the option of simultaneous trading, please choose at least 2 accounts.",
+    "linkedOrders": "Linked orders",
+    "simultaneousDisablingAllLinksWillBeDeleted": "You still have linked positions or pending orders from previous simultaneous trading activity. If you disable this option – all links will be deleted. Are you sure you want to continue?",
+    "noActivePositions": "No active positions in this account at this moment",
+    "noActiveOrders": "No active orders in this account at this moment",
+    "swipeLeftTutorial": "Swipe right to left for quicker navigation between screens",
+    "swipeRightTutorial": "Swipe from the left edge to right for quicker access to app''s menu",
+    "expected": "Expected",
+    "current": "Current",
+    "tradingDisableForSymbolWithDescription": "Trading is disabled for this symbol, it is in a \"view only\" mode. Please contact your broker for more details.",
+    "symbolHasLimitedAccessWithDescription": "This symbol has a limited access. You can''t create new orders, but only close or edit existing orders. Please contact your broker for more deetails.",
+    "symbolDisabledForShortTrading": "This symbol is disabled for short trading",
+    "broker": "Broker",
+    "someErrorOccuredTryLater": "Some error occurred. Please try again later.",
+    "executionFailedForBroker": "Execution failed for {broker}",
+    "@executionFailedForBroker": {
+        "placeholders": {
+            "broker": {
+                "type": "String"
+            }
+        }
+    },
+    "tradingConditionsPlaformNotAllowExecuteOrder": "Trading conditions for {symbol} on {broker} platform didn''t allow execution of given order.",
+    "@tradingConditionsPlaformNotAllowExecuteOrder": {
+        "placeholders": {
+            "symbol": {
+                "type": "String"
+            },
+            "broker": {
+                "type": "String"
+            }
+        }
+    },
+    "tradingRoom": "Trading Room",
+    "warning": "Warning!",
+    "simultaneousIncludeBothAccountTypes": "You included both hedging and netting account types. Having more than one order for a symbol at any given moment might lead to different outcomes.",
+    "specialThanks": "Special thanks",
+    "tradingHistory": "Trading History",
+    "noRecentHistory": "No recent trading activity was found. Tap on \"Load More\" to get trading history for longer period.",
+    "lastHistory": "This is your latest trading activity. Tap on \"Load More\" to get trading history for longer period.",
+    "allHistoryLoaded": "All history was loaded",
+    "serverErrorNoQuotes": "Trading cannot be done as no quotes are available.",
+    "serverErrorNotEnoughMoney": "There is not enough funds on your account to execute this order.",
+    "serverErrorPositionLocked": "Position is locked and can''t be modified or closed. Please contact your broker for details.",
+    "serverErrorTradingBadVolume": "Given order can''t be executed for given volume.",
+    "serverErrorProtectionIsTooCloseToMarket": "Given stop loss can''t be set for this order. Please try to set it at a different rate.",
+    "serverErrorTradingDisabled": "Trading was disabled for this account. Please contact your broker for more details.",
+    "serverErrorUnableToCancelOrder": "Given order can''t be cancelled. Please try later.",
+    "serverErrorUnabkeToAmendOrder": "This order can''t be edited. Please try later.",
+    "noTermsFound": "No terms found",
+    "waitPlease": "Wait please",
+    "pnl": "PnL",
+    "cantGetSymbolDetails": "Can''t get symbol details info",
+    "favourites": "Favourites",
+    "openSourceBanner": "An open-source example trading app by Spotware Systems ltd.",
+    "loadingDataForAcc": "Loading data for {account}",
+    "@loadingDataForAcc": {
+        "placeholders": {
+            "account": {
+                "type": "int"
+            }
+        }
+    },
+    "demoAccountRequired": "Demo account required",
+    "loginWithDemoAccount": "Please log in with a demo account. Live accounts are disabled in this app.",
+    "toContinue": "To continue",
+    "readAndAgreeTermsFirst": "To continue, please accept our #link.",
+    "readAndAgreeLinkName": "Terms and Conditions",
+    "agree": "Agree",
+    "reject": "Reject"
+}
