@@ -1,4 +1,4 @@
-package com.example.ctrader_example_app
+package com.ctrader.oaflutter
 
 import io.flutter.embedding.android.FlutterActivity
 

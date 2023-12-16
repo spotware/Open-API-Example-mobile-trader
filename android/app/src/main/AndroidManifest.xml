@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ctrader_example_app">
+    package="com.ctrader.oaflutter">
     <uses-permission android:name="android.permission.INTERNET"/>
    
    <application
