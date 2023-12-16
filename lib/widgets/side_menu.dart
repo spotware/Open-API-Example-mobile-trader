@@ -49,7 +49,7 @@ class SideMenu extends StatelessWidget {
             _divider(),
             _menuItemBottom(
               l10n.sourcesAndDetails,
-              () => openUrlInBrowser('https://openapi.ctrader.com/'),
+              () => openUrlInBrowser('https://github.com/spotware/Open-API-Example-mobile-trader'),
               icon: SvgPicture.asset('assets/svg/github.svg', width: 20, height: 20, colorFilter: THEME.onBackground().asFilter),
             ),
             _divider(),
