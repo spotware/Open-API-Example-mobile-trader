@@ -24,11 +24,11 @@ class _LoginWebViewState extends State<LoginWebView> {
 
     final AppState appState = GetIt.I<AppState>();
 
-  final Map<String, String> params = <String, String>{
+    final Map<String, String> params = <String, String>{
+      'product': 'mobile',
       'client_id': appState.clientID,
       'redirect_uri': 'https://login.confirm',
       'scope': 'trading',
-      'product': 'mobile'
     };
     final Uri url = Uri.https(appState.loginURL, '/my/settings/openapi/grantingaccess/', params);
 
