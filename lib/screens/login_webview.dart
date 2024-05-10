@@ -33,6 +33,7 @@ class _LoginWebViewState extends State<LoginWebView> {
     final Uri url = Uri.https(appState.loginURL, '/my/settings/openapi/grantingaccess/', params);
 
     _controller = WebViewController()
+      ..setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Colors.white)
       ..setNavigationDelegate(
@@ -44,6 +45,7 @@ class _LoginWebViewState extends State<LoginWebView> {
           },
           onNavigationRequest: (NavigationRequest request) {
             final Uri url = Uri.parse(request.url);
+            Logger.debug(() => url.toString());
             if (url.host == 'login.confirm') {
               final String? code = url.queryParameters['code'];
               Timer.run(() => Navigator.pop(context, code));

@@ -1210,7 +1210,7 @@ class ProtoOAGetAccountListByAccessTokenRes extends ProtoMessage {
     if (payload['permissionScope'] != null) {
       permissionScope = ProtoOAClientPermissionScope.values[payload['permissionScope'] as int];
     }
-    final List<dynamic> jsonAccountsList = payload['ctidTraderAccount'] as List<dynamic>;
+    final List<dynamic> jsonAccountsList = payload['ctidTraderAccount'] as List<dynamic>? ?? <dynamic>[];
     for (final dynamic jsonAccount in jsonAccountsList) {
       ctidTraderAccount.add(ProtoOACtidTraderAccount.$parse(jsonAccount as Map<String, dynamic>));
     }

@@ -164,7 +164,7 @@ class _ActivityPositionsState extends State<ActivityPositions> {
       ]),
       Row(children: <Widget>[
         const SizedBox(width: 16),
-        Text(l10n.openPrice, style: THEME.texts.bodyMediumSecondary),
+        Text(l10n.openingPrice, style: THEME.texts.bodyMediumSecondary),
         const Spacer(),
         Text(position.formattedRate(system: position.rate), style: THEME.texts.bodyMediumSecondary),
         const SizedBox(width: 16),

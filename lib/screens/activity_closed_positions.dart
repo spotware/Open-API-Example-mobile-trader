@@ -212,7 +212,7 @@ class _ActivityClosedPositionsState extends State<ActivityClosedPositions> {
       ]),
       Row(children: <Widget>[
         const SizedBox(width: 16),
-        Text(l10n.openPrice, style: THEME.texts.bodyMediumSecondary),
+        Text(l10n.openingPrice, style: THEME.texts.bodyMediumSecondary),
         const Spacer(),
         Text(openPrice, style: THEME.texts.bodyMediumSecondary),
         const SizedBox(width: 16),
@@ -226,7 +226,7 @@ class _ActivityClosedPositionsState extends State<ActivityClosedPositions> {
       ]),
       Row(children: <Widget>[
         const SizedBox(width: 16),
-        Text(l10n.closePrice, style: THEME.texts.bodyMediumSecondary),
+        Text(l10n.closingPrice, style: THEME.texts.bodyMediumSecondary),
         const Spacer(),
         Text(
           symbol?.details?.formattedRate(humanic: deal.executionPrice) ?? SymbolData.formattedRateDefault(humanic: deal.executionPrice),
@@ -236,7 +236,7 @@ class _ActivityClosedPositionsState extends State<ActivityClosedPositions> {
       ]),
       Row(children: <Widget>[
         const SizedBox(width: 16),
-        Text(l10n.closeTime, style: THEME.texts.bodyMediumSecondary),
+        Text(l10n.closingTime, style: THEME.texts.bodyMediumSecondary),
         const Spacer(),
         Text(
           DateTime.fromMillisecondsSinceEpoch(deal.executionTimestamp).formatted(),

@@ -60,10 +60,7 @@ class PopupManager extends ChangeNotifier {
   Future<PopupResult> showError(AppLocalizations l10n, String error) {
     Logger.error('PopupManaer.showError\n${StackTrace.current.toString()}');
 
-    return showPopup(
-      title: l10n.errorOccurred,
-      message: '${l10n.errorDescription}:\n$error',
-    );
+    return showPopup(title: l10n.errorOccurred, message: error);
   }
 
   Future<PopupResult> showSomeErrorOccurred(AppLocalizations l10n) {
@@ -224,7 +221,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaPosition.price) ?? SymbolData.formattedRateDefault(humanic: oaPosition.price),
@@ -323,7 +320,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaPosition.price) ?? SymbolData.formattedRateDefault(humanic: oaPosition.price),
@@ -595,7 +592,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: openPrice) ?? SymbolData.formattedRateDefault(humanic: openPrice),
@@ -611,7 +608,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.closePrice, style: popup_constants.textStyleBody),
+          Text(l10n.closingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: deal.executionPrice) ?? SymbolData.formattedRateDefault(humanic: deal.executionPrice),
@@ -781,7 +778,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             closeDetail == null
@@ -799,7 +796,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.closePrice, style: popup_constants.textStyleBody),
+          Text(l10n.closingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaDeal.executionPrice) ?? SymbolData.formattedRateDefault(humanic: oaDeal.executionPrice),
@@ -983,7 +980,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.validTill, style: popup_constants.textStyleBody),
+          Text(l10n.goodTill, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             oaOrder.timeInForce == ProtoOATimeInForce.goodTillCancel
@@ -1518,7 +1515,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             closeDetail == null
@@ -1536,7 +1533,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.closePrice, style: popup_constants.textStyleBody),
+          Text(l10n.closingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaDeal.executionPrice) ?? SymbolData.formattedRateDefault(humanic: oaDeal.executionPrice),
@@ -1625,7 +1622,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.openPrice, style: popup_constants.textStyleBody),
+          Text(l10n.openingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaDeal.closePositionDetail?.entryPrice) ??
@@ -1642,7 +1639,7 @@ class PopupManager extends ChangeNotifier {
           ),
         ]),
         Row(children: <Widget>[
-          Text(l10n.closePrice, style: popup_constants.textStyleBody),
+          Text(l10n.closingPrice, style: popup_constants.textStyleBody),
           const Spacer(),
           Text(
             symbolDetails?.formattedRate(humanic: oaDeal.executionPrice) ?? SymbolData.formattedRateDefault(humanic: oaDeal.executionPrice),
@@ -2074,7 +2071,7 @@ class PopupManager extends ChangeNotifier {
     final Popup popup = Popup(
       completer: Completer<PopupResult>(),
       payload: Map<String, dynamic>.identity(),
-      title: l10n.linkedOrders,
+      title: l10n.warning,
       message: l10n.simultaneousDisablingAllLinksWillBeDeleted,
       buttons: <Widget>[
         ButtonSecondary(

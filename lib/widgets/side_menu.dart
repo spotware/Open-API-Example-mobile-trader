@@ -48,12 +48,6 @@ class SideMenu extends StatelessWidget {
             _menuItemBottom(l10n.logOut, () => _logOut(context)),
             _divider(),
             _menuItemBottom(
-              l10n.sourcesAndDetails,
-              () => openUrlInBrowser('https://github.com/spotware/Open-API-Example-mobile-trader'),
-              icon: SvgPicture.asset('assets/svg/github.svg', width: 20, height: 20, colorFilter: THEME.onBackground().asFilter),
-            ),
-            _divider(),
-            _menuItemBottom(
               l10n.openApiSupport,
               () => _support(context),
               icon: SvgPicture.asset('assets/svg/telegram.svg'),
@@ -219,6 +213,6 @@ class SideMenu extends StatelessWidget {
 
   void _specialThanks(BuildContext context) {
     // Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context) => const SpecialThanksScreen()));
-    showLicensePage(context: context);
+    showLicensePage(context: context, applicationName: 'Open API Trader');
   }
 }

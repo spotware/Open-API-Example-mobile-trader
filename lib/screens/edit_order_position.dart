@@ -300,7 +300,7 @@ class _EditOrderPositionScreenState extends State<EditOrderPositionScreen> {
       const SizedBox(height: 4),
       _headerLine(l10n.positionId, position.id.toString()),
       _headerLine(l10n.amount, position.formattedVolumeWithUnits),
-      _headerLine(l10n.openPrice, position.formattedRate(system: position.rate)),
+      _headerLine(l10n.openingPrice, position.formattedRate(system: position.rate)),
       _headerLine(l10n.currentRate, position.formattedRate(system: position.currentRate)),
       _headerLine(l10n.openTime, position.opened.formatted()),
     ];
@@ -558,7 +558,7 @@ class _EditOrderPositionScreenState extends State<EditOrderPositionScreen> {
       ),
       const SizedBox(height: 6),
       Text(
-        '${isTSCurrent ? l10n.current : l10n.expected}: ${symbol?.details?.formattedRate(system: rate) ?? SymbolData.formattedRateDefault(system: rate)}',
+        '${isTSCurrent ? l10n.currently : l10n.expected}: ${symbol?.details?.formattedRate(system: rate) ?? SymbolData.formattedRateDefault(system: rate)}',
         style: THEME.texts.bodyRegular,
       ),
       const SizedBox(height: 16),

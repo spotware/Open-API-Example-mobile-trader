@@ -63,7 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 40),
                     SvgPicture.asset('assets/svg/login_logo.svg'),
                     const SizedBox(height: 36),
-                    Text(l10n.loginSignInLable, style: THEME_LOGIN.texts.headingStrong, textAlign: TextAlign.center),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(l10n.loginSignInLable, style: THEME_LOGIN.texts.headingStrong, textAlign: TextAlign.center),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ButtonPrimary(label: l10n.loginSignInButton, onTap: _onClickLoginButton),
@@ -209,6 +212,12 @@ class _LoginScreenState extends State<LoginScreen> {
         } else {
           rethrow;
         }
+      }
+
+      if (accountsResp.ctidTraderAccount.isEmpty) {
+        final AppLocalizations l10n = AppLocalizations.of(context)!;
+        GetIt.I<PopupManager>().showPopup(title: l10n.noAccounts, message: l10n.noAccountsFoundVerifyEmail);
+        throw 'NO_ACCESS';
       }
 
       for (final proto.ProtoOACtidTraderAccount traderAcc in accountsResp.ctidTraderAccount) {

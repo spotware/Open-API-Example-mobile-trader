@@ -15,7 +15,7 @@ class LoginBottomBanner extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return GestureDetector(
-      onTap: () => openUrlInBrowser('https://github.com/spotware/Open-API-Example-mobile-trader'),
+      onTap: () => openOpenApiTelegram(),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
         decoration: BoxDecoration(color: THEME_LOGIN.bannerBackground),
@@ -31,8 +31,13 @@ class LoginBottomBanner extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(l10n.canYouCreateBetterApp, style: THEME_LOGIN.texts.banner),
-                  Text(l10n.reuseOurCode, style: THEME_LOGIN.texts.bannerBold),
+                  FittedBox(
+                    child: Text(
+                      l10n.contactCtraderSupportForQuestions,
+                      style: THEME_LOGIN.texts.bannerBold,
+                      softWrap: false,
+                    ),
+                  ),
                 ],
               ),
             )

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum AppStateKeys { language, theme, pnlState, chartRotated, showOrders, chartHeight, moreAccountsWarnPopup, swipeTutorialStep, termsChecked, trTermsChecked }
+enum AppStateKeys { language, theme, pnlState, showOrders, chartHeight, moreAccountsWarnPopup, termsChecked, trTermsChecked }
 
 enum AppStatus { ACTIVE, SLEEP }
 
@@ -76,14 +76,6 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isChartRotated = false;
-  bool get isChartRotated => _isChartRotated;
-  void setChartRotated() {
-    _isChartRotated = true;
-    _saveState();
-    notifyListeners();
-  }
-
   bool _showOrdersInMarket = true;
   bool get showOrdersInMarket => _showOrdersInMarket;
   void setShowOrdersInMarkets(bool value) {
@@ -108,15 +100,6 @@ class AppState extends ChangeNotifier {
     _saveState();
   }
 
-  int _swipeTutorialStep = -1;
-  int get swipeTutorialStep => _swipeTutorialStep;
-  void incrementSwipeTutorialStep([int? steps]) {
-    _swipeTutorialStep += steps ?? 1;
-    _saveState();
-
-    notifyListeners();
-  }
-
   bool _termsChecked = false;
   bool get isTermsChecked => _termsChecked;
   void markTermsChecked() {
@@ -138,11 +121,9 @@ class AppState extends ChangeNotifier {
     prefs.setString(AppStateKeys.language.toString(), _locale.languageCode);
     prefs.setInt(AppStateKeys.theme.toString(), _themeType.index);
     prefs.setInt(AppStateKeys.pnlState.toString(), _floatingPnl.index);
-    prefs.setBool(AppStateKeys.chartRotated.toString(), _isChartRotated);
     prefs.setBool(AppStateKeys.showOrders.toString(), _showOrdersInMarket);
     prefs.setDouble(AppStateKeys.chartHeight.toString(), _chartHeight);
     prefs.setBool(AppStateKeys.moreAccountsWarnPopup.toString(), _moreAccountsWarnPopupShowed);
-    prefs.setInt(AppStateKeys.swipeTutorialStep.toString(), _swipeTutorialStep);
     prefs.setBool(AppStateKeys.termsChecked.toString(), _termsChecked);
     prefs.setBool(AppStateKeys.trTermsChecked.toString(), _trTermsChecked);
 
@@ -153,11 +134,9 @@ class AppState extends ChangeNotifier {
     _locale = Locale(prefs.getString(AppStateKeys.language.toString()) ?? 'en');
     _themeType = ThemeType.values.elementAt(prefs.getInt(AppStateKeys.theme.toString()) ?? _themeType.index);
     _floatingPnl = FloatingPnlState.values.elementAt(prefs.getInt(AppStateKeys.pnlState.toString()) ?? _floatingPnl.index);
-    _isChartRotated = prefs.getBool(AppStateKeys.chartRotated.toString()) == true;
     _showOrdersInMarket = prefs.getBool(AppStateKeys.showOrders.toString()) ?? _showOrdersInMarket;
     _chartHeight = prefs.getDouble(AppStateKeys.chartHeight.toString()) ?? _chartHeight;
     _moreAccountsWarnPopupShowed = prefs.getBool(AppStateKeys.moreAccountsWarnPopup.toString()) == true;
-    _swipeTutorialStep = prefs.getInt(AppStateKeys.swipeTutorialStep.toString()) ?? _swipeTutorialStep;
     _termsChecked = prefs.getBool(AppStateKeys.termsChecked.toString()) == true;
     _trTermsChecked = prefs.getBool(AppStateKeys.trTermsChecked.toString()) == true;
 

@@ -19,6 +19,7 @@ import 'package:ctrader_example_app/screens/activity_screen.dart';
 import 'package:ctrader_example_app/screens/buy_sell_screen.dart';
 import 'package:ctrader_example_app/screens/terms_screen.dart';
 import 'package:ctrader_example_app/states/app_state.dart';
+import 'package:ctrader_example_app/states/tutorial_state.dart';
 import 'package:ctrader_example_app/states/user_state.dart';
 import 'package:ctrader_example_app/utils.dart';
 import 'package:ctrader_example_app/widgets/floating_pnl.dart';
@@ -69,8 +70,8 @@ class _MarketScreenState extends State<MarketScreen> {
       Timer.run(() => _scrollController.jumpTo(_scrollOffsetForSelectedSymbol()));
     }
 
-    final bool isTermsChecked = GetIt.I<AppState>().isTermsChecked;
-    if (!isTermsChecked) {
+    final AppState appState = GetIt.I<AppState>();
+    if (!appState.isTermsChecked) {
       Timer.run(() async {
         final String jsonStr = await rootBundle.loadString('assets/json/app_terms.json');
         final Iterable<List<String>> terms = (jsonDecode(jsonStr) as List<dynamic>).cast<List<dynamic>>().map((List<dynamic> e) => e.cast<String>());
@@ -89,16 +90,13 @@ class _MarketScreenState extends State<MarketScreen> {
             agreed = false;
           }
         }
-        
+
         if (agreed) {
-          GetIt.I<AppState>().markTermsChecked();
-          Timer(const Duration(seconds: 2), () => GetIt.I<AppState>().incrementSwipeTutorialStep());
+          appState.markTermsChecked();
         } else {
           logout(context);
         }
       });
-    } else if (isTermsChecked && GetIt.I<AppState>().swipeTutorialStep < 0) {
-      GetIt.I<AppState>().incrementSwipeTutorialStep();
     }
 
     _unlockRotation();
@@ -116,8 +114,10 @@ class _MarketScreenState extends State<MarketScreen> {
     final AppLocalizations l10n = AppLocalizations.of(context)!;
     final UserState userState = context.watch<UserState>();
     final AppState appState = context.watch<AppState>();
+    final TutorialState tutorial = context.watch<TutorialState>();
     final Iterable<AssetClassData> assetClasses = userState.selectedTrader.tree.assetClasses;
     final SymbolData? selectedSymbol = userState.selectedTrader.tree.symbol(_selectedSymbolId);
+    final TutorialSteps tutorialStep = tutorial.currentStep;
 
     if (appState.chartHeight < 120) {
       final double screenHeight = MediaQuery.of(context).size.height;
@@ -130,14 +130,12 @@ class _MarketScreenState extends State<MarketScreen> {
         builder: (BuildContext context, Orientation orientation) {
           final bool isLandscape = orientation == Orientation.landscape;
 
-          if (appState.isChartRotated == false && isLandscape) _disableRotationNotification();
+          if (isLandscape) _disableRotationNotification();
 
           return SwipeTutorial(
             scaffolfKey: _scaffoldKey,
-            direction: !isLandscape
-                ? (appState.swipeTutorialStep == 0
-                    ? AxisDirection.left
-                    : (appState.swipeTutorialStep == 2 && appState.isChartRotated ? AxisDirection.right : null))
+            direction: !isLandscape && appState.isTermsChecked && tutorial.visible
+                ? (tutorialStep == TutorialSteps.swipeLeft ? AxisDirection.left : (tutorialStep == TutorialSteps.swipeRight ? AxisDirection.right : null))
                 : null,
             child: Scaffold(
               key: _scaffoldKey,
@@ -183,7 +181,7 @@ class _MarketScreenState extends State<MarketScreen> {
                                         : MiniChart(
                                             symbol: selectedSymbol,
                                             showToolbar: orientation == Orientation.landscape,
-                                            showRotNotif: !appState.isChartRotated && appState.swipeTutorialStep == 2,
+                                            showRotNotif: tutorialStep == TutorialSteps.chartRotation && tutorial.visible,
                                             onTapCloseTip: _disableRotationNotification,
                                           ),
                                   ),
@@ -512,12 +510,7 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   void _disableRotationNotification() {
-    final AppState appState = GetIt.I<AppState>();
-    appState.setChartRotated();
-    if (appState.swipeTutorialStep == 2) {
-      appState.incrementSwipeTutorialStep(-1);
-      Timer(const Duration(seconds: 2), () => appState.incrementSwipeTutorialStep());
-    }
+    GetIt.I<TutorialState>().finishStep(TutorialSteps.chartRotation, withPause: true);
   }
 
   void _scrollStarted() {

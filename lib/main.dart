@@ -19,6 +19,7 @@ import 'package:ctrader_example_app/screens/market_screen.dart';
 import 'package:ctrader_example_app/screens/trading_room_screen.dart';
 import 'package:ctrader_example_app/states/app_state.dart';
 import 'package:ctrader_example_app/states/simultaneous_trading_state.dart';
+import 'package:ctrader_example_app/states/tutorial_state.dart';
 import 'package:ctrader_example_app/states/user_state.dart';
 import 'package:ctrader_example_app/styles/dark_theme_config.dart';
 import 'package:ctrader_example_app/styles/itheme_config.dart';
@@ -85,6 +86,7 @@ void main() async {
   GetIt.I.registerSingleton<SimultaneousTrdaingState>(SimultaneousTrdaingState());
   GetIt.I.registerSingleton<RemoteAPIManager>(RemoteAPIManager());
   GetIt.I.registerSingleton<PopupManager>(PopupManager());
+  GetIt.I.registerSingleton<TutorialState>(TutorialState());
 
   GetIt.I<RemoteAPIManager>().subscribe<proto.ProtoOASymbolByIdRes>(GetIt.I<UserState>().handleSymbolDetailsResponse);
   GetIt.I<RemoteAPIManager>().subscribe<proto.ProtoOAExecutionEvent>(_handleExecutionEvent);
@@ -113,6 +115,7 @@ void _handleExecutionEvent(proto.ProtoOAExecutionEvent event) {
   final proto.ProtoOAOrder oaOrder = event.order!;
   final bool isMarket = oaOrder.orderType == proto.ProtoOAOrderType.market;
   final bool isOrder = oaOrder.orderType == proto.ProtoOAOrderType.limit || oaOrder.orderType == proto.ProtoOAOrderType.stop;
+  final bool isSlTp = oaOrder.orderType == proto.ProtoOAOrderType.stopLossTakeProfit;
   final bool isFilled = event.executionType == proto.ProtoOAExecutionType.orderFilled || event.executionType == proto.ProtoOAExecutionType.orderPartialFill;
 
   if (isMarket && oaOrder.isStopOut == true) {
@@ -128,6 +131,8 @@ void _handleExecutionEvent(proto.ProtoOAExecutionEvent event) {
     GetIt.I<PopupManager>().showPendingOrderExpired(l10n, event);
   } else if (isOrder && isFilled) {
     GetIt.I<PopupManager>().handlePendingOrderExecutedEvent(l10n, event);
+  } else if (isSlTp && event.executionType == proto.ProtoOAExecutionType.orderFilled && event.position?.tradeData.volume == 0) {
+    GetIt.I<PopupManager>().showPositionClosed(l10n, event);
   } else if (isMarket &&
       event.executionType != proto.ProtoOAExecutionType.orderAccepted &&
       (oaOrder.closingOrder == true || event.position!.tradeData.volume == 0)) {
@@ -172,6 +177,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ChangeNotifierProvider<PopupManager>(create: (BuildContext context) => GetIt.I<PopupManager>()),
         ChangeNotifierProvider<AppState>(create: (BuildContext context) => GetIt.I<AppState>()),
         ChangeNotifierProvider<UserState>(create: (BuildContext context) => GetIt.I<UserState>()),
+        ChangeNotifierProvider<TutorialState>(create: (BuildContext context) => GetIt.I<TutorialState>()),
       ],
       builder: (BuildContext context, Widget? child) {
         final AppState appState = context.watch<AppState>();
